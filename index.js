@@ -1,46 +1,30 @@
 const express = require('express');
 const routes = require('./src/routes/crmRoutes');
 const bodyParser = require('body-parser');
-var md5 = require('md5')
+var cors = require('cors');
+var md5 = require('md5');
 
 const app = express();
 const PORT = 4000;
-
-//SQL Lite3
-//let db = new sqlite.Database('./database/Pics.db', sqlite.OPEN_READWRITE, (err) => {
-//    if (err) {
-//        console.error(err.message);
-//    }
-//    console.log('Pics database connected.');
-//});
-//
-//db.serialize(() => {
-//    db.each(`SELECT * from Image where ID = 1337`, (err, row) => {
-//        if (err) {
-//            console.error(err.message);
-//        }
-//        console.log(row);
-//    });
-//});
-//
-//db.close((err) => {
-//    if (err) {
-//        console.error(err.message);
-//    }
-//    console.log('Close the database connection.');
-//});
-
 
 //Bodyparser setup
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+var corsOptions = {
+    origin: 'http://r45k.ddns.net',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
+
+
+app.use(cors(corsOptions));
+
 routes(app);
 
-app.get('/', (req, res) =>
+app.get('/', (req, res, next) =>
     res.send('{ "message" : "ok" }')
 );
-app.get('/api/', (req, res) =>
+app.get('/api/', (req, res, next) =>
     res.send('{ "version" : "1.0" }')
 );
 

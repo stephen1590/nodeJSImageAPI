@@ -61,7 +61,12 @@ function getGalleryImagesByName(res, name) {
             res.status(400).json({ "error": err.message });
             return;
         }
-        getGalleryImagesByID(res, row.ID)
+        try {
+            getGalleryImagesByID(res, row.ID)
+        } catch (e) {
+            res.status(400).json({ "error": "Unknown Gallery: " + name });
+            return;
+        }
     });
 
 }
@@ -85,5 +90,6 @@ module.exports = {
     getImage,
     getImages,
     getGallery,
-    getGalleries
+    getGalleries,
+    getGalleryImagesByID
 }

@@ -30,10 +30,15 @@ const routes = (app) => {
             console.log(`Request from: ${req.method} Gallery - All`)
             res = controllers.getGalleries(res);
         })
-    app.route('/api/gallery/:galleryID')
+    app.route('/api/gallery/:galleryName')
+        .get((req, res, next) => {
+            console.log(`Request from: ${req.method} Gallery ${req.params.galleryName}`)
+            res = controllers.getGallery([req.params.galleryName], res);
+        })
+    app.route('/api/gallery/ID/:galleryID')
         .get((req, res, next) => {
             console.log(`Request from: ${req.method} Gallery ${req.params.galleryID}`)
-            res = controllers.getGallery([req.params.galleryID], res);
+            res = controllers.getGalleryImagesByID(res, [req.params.galleryID]);
         })
 
 }
