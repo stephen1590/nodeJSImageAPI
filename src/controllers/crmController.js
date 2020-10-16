@@ -22,11 +22,12 @@ const getGallery = (gal, res) => {
 
 const getGalleries = (res) => {
     var table = "Gallery"
-    getAll(res, table)
+    var xtra = "Where Hidden = 0 Order By Name"
+    getAll(res, table, xtra)
 }
 
-function getAll(res, table) {
-    var sql = `Select * from ${table}`
+function getAll(res, table, extra) {
+    var sql = `Select * from ${table} ${extra}`
     db.all(sql, (err, rows) => {
         if (err) {
             res.status(400).json({ "error": err.message });
