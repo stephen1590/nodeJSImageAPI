@@ -1,0 +1,23 @@
+{
+    "name": "api",
+    "version": "1.0.0",
+    "description": "crm backend",
+    "main": "index.js",
+    "scripts": {
+        "start": "nodemon ./index.js --exec babel-node -e js"
+    },
+    "author": "Stephen",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.19.0",
+        "express": "^4.17.1",
+        "md5": "^2.3.0",
+        "nodemon": "^2.0.4",
+        "sqlite3": "^5.0.0"
+    },
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-stage-0": "^6.24.1"
+    }
+}
