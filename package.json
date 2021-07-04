@@ -2,9 +2,9 @@
     "name": "api",
     "version": "1.0.0",
     "description": "crm backend",
-    "main": "index.js",
+    "main": "app.js",
     "scripts": {
-        "start": "nodemon ./index.js --exec babel-node -e js"
+        "start": "nodemon ./app.js --exec babel-node -e js"
     },
     "author": "Stephen",
     "license": "ISC",

@@ -7,6 +7,10 @@ var md5 = require('md5');
 const app = express();
 const PORT = 4000;
 
+if (process.env.PORT) {
+    PORT = process.env.PORT;
+}
+
 var https = require('https');
 var fs = require('fs');
 
@@ -23,7 +27,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 var corsOptions = {
-    origin: 'http://r45k.ddns.net',
+    origin: '*',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 

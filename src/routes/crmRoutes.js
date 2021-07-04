@@ -32,14 +32,19 @@ const routes = (app) => {
         })
     app.route('/api/gallery/:galleryName')
         .get((req, res, next) => {
-            console.log(`Request from: ${req.method} Gallery ${req.params.galleryName}`)
+            console.log(`Request from: ${req.method} Gallery ${req.params.galleryName}.`)
             res = controllers.getGallery([req.params.galleryName], res);
         })
-    app.route('/api/gallery/ID/:galleryID')
+    app.route('/api/gallery/:galleryName/images')
         .get((req, res, next) => {
-            console.log(`Request from: ${req.method} Gallery ${req.params.galleryID}`)
-            res = controllers.getGalleryImagesByID(res, [req.params.galleryID]);
+            console.log(`Request from: ${req.method} Gallery ${req.params.galleryName} images.`)
+            res = controllers.getGalleryImages([req.params.galleryName], res);
         })
+        /*app.route('/api/gallery/ID/:galleryID')
+            .get((req, res, next) => {
+                console.log(`Request from: ${req.method} Gallery ${req.params.galleryID}`)
+                res = controllers.getGalleryImagesByGalleryID(res, [req.params.galleryID]);
+            })*/
 
 }
 module.exports = routes;
