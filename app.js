@@ -3,6 +3,7 @@ const routes = require('./src/routes/crmRoutes');
 const bodyParser = require('body-parser');
 var cors = require('cors');
 var md5 = require('md5');
+require('dotenv').config()
 
 const app = express();
 const PORT = 4000;
@@ -31,16 +32,24 @@ var corsOptions = {
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
 
+var publicHTML = __dirname + '/staticFiles'
+
 app.use(cors(corsOptions));
+app.use('/', express.static(publicHTML))
 
 routes(app);
 
-app.get('/', (req, res, next) =>
+/*app.get('/', (req, res, next) =>
     res.send('{ "message" : "ok" }')
-);
+);*/
+
 app.get('/api/', (req, res, next) =>
     res.send('{ "version" : "1.0" }')
 );
+
+app.get('/*', (req, res) => {
+    res.sendFile(publicHTML + '/index.html');
+})
 
 app.listen(PORT, () =>
     console.log(`Your server is running on port ${PORT}`)
