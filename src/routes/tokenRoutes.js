@@ -15,10 +15,13 @@ const routes = (app) => {
 
                 authControllers.verify(token)
                 res.json({
-                    "message": "valid"
+                    "message": "success"
                 })
             } catch (error) {
-                res.json({ error: error.message })
+                res.json({
+                    "message": "failure",
+                    error: error.message
+                })
             }
         });
     app.route('/api/token')
