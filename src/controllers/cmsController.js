@@ -1,4 +1,4 @@
-const schema = require('../models/crmModel');
+const schema = require('../models/cmsModel');
 const db = require('../../database/db');
 
 const image = schema.imageSchema
@@ -8,15 +8,17 @@ const galleryImages = schema.galleryImagesSchema
 //==================================
 //Get Single Image
 const getImage = (img, res) => {
-        var table = "Image"
-        getByID(res, table, img)
+        getByID(res, "Image", img)
     }
     //Get Single Image Query
 function getByID(res, table, id) {
-    var sql = `Select * from ${table} where ID = ?`
+    let sql = `Select * from ${table} where [ID]= ?`
     db.get(sql, id, (err, rows) => {
         if (err) {
-            res.status(400).json({ "error": err.message });
+            res.status(400).json({
+                "message": "failure",
+                "error": err.message
+            });
             return;
         }
         res.json({
@@ -28,20 +30,21 @@ function getByID(res, table, id) {
 //==================================
 //Get All Images
 const getImages = (res) => {
-        var table = "Image"
-        getAll(res, table)
+        getAll(res, "Image")
     }
     //Get All Galleries
 const getGalleries = (res) => {
-        var table = "Gallery"
-        getAll(res, table)
+        getAll(res, "Gallery")
     }
     //Get All Query
 function getAll(res, table, extra) {
-    var sql = `Select * from ${table} ${extra}`
+    let sql = `Select * from ${table} ${extra}`
     db.all(sql, (err, rows) => {
         if (err) {
-            res.status(400).json({ "error": err.message });
+            res.status(400).json({
+                "message": "failure",
+                "error": err.message
+            });
             return;
         }
         res.json({
@@ -53,17 +56,17 @@ function getAll(res, table, extra) {
 //==================================
 //Get Single Gallery
 const getGallery = (gal, res) => {
-        var table = "Gallery"
         getGalleryByName(res, gal)
     }
     //Get Single Gallery Query
 function getGalleryByName(res, name) {
-    var table = "Gallery"
-    var sql = `Select * from ${table} where Name = ?`
-    console.log(sql)
+    let sql = `Select * from [Gallery] where [Name] = ?`
     db.all(sql, name, (err, rows) => {
         if (err) {
-            res.status(400).json({ "error": err.message });
+            res.status(400).json({
+                "message": "failure",
+                "error": err.message
+            });
             return;
         }
         res.json({
@@ -76,13 +79,11 @@ function getGalleryByName(res, name) {
 //==================================
 //Get Single Gallery Image List By Name
 const getGalleryImages = (gal, res) => {
-        var table = "Gallery"
         getGalleryImagesByGalleryName(res, gal)
     }
     //Get Single Gallery Image List By Name
 function getGalleryImagesByGalleryName(res, name) {
-    var table = "Gallery"
-    var sql = `Select ID from ${table} where Name = ?`
+    let sql = `Select ID from "Gallery" where Name = ?`
     db.get(sql, name, (err, row) => {
         if (err) {
             res.status(400).json({ "error": err.message });
@@ -91,7 +92,10 @@ function getGalleryImagesByGalleryName(res, name) {
         try {
             getGalleryImagesByID(res, row.ID)
         } catch (e) {
-            res.status(400).json({ "error": "Unknown Gallery: " + name });
+            res.status(400).json({
+                "message": "failure",
+                "error": "Unknown Gallery: " + name
+            });
             return;
         }
     });
@@ -100,11 +104,14 @@ function getGalleryImagesByGalleryName(res, name) {
 
 
 function getGalleryImagesByID(res, id) {
-    var sql = `Select i.ID, g.Name as 'GalleryName', MD5, Location, g.OwnerID, i.ModifiedDate, i.Name, FileSizeMB, FileExtension, i.CreationDate, Dimensions, Notes From GalleryImageList l join Image i on l.ImageID = i.ID join Gallery g on g.ID = l.GalleryID where GalleryID = ?`
+    let sql = `Select i.ID, g.Name as 'GalleryName', MD5, Location, g.OwnerID, i.ModifiedDate, i.Name, FileSizeMB, FileExtension, i.CreationDate, Dimensions, Notes From GalleryImageList l join Image i on l.ImageID = i.ID join Gallery g on g.ID = l.GalleryID where GalleryID = ?`
     console.log(sql)
     db.all(sql, id, (err, rows) => {
         if (err) {
-            res.status(400).json({ "error": err.message });
+            res.status(400).json({
+                "message": "failure",
+                "error": err.message
+            });
             return;
         }
         res.json({

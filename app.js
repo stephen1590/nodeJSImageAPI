@@ -1,9 +1,11 @@
 const express = require('express');
-const routes = require('./src/routes/crmRoutes');
+const routes = require('./src/routes/cmsRoutes');
+const tokenRoutes = require('./src/routes/tokenRoutes');
 const bodyParser = require('body-parser');
 var cors = require('cors');
-var md5 = require('md5');
 require('dotenv').config()
+    //var md5 = require('md5');
+
 
 const app = express();
 const PORT = 4000;
@@ -38,13 +40,17 @@ app.use(cors(corsOptions));
 app.use('/', express.static(publicHTML))
 
 routes(app);
+tokenRoutes(app);
 
 /*app.get('/', (req, res, next) =>
     res.send('{ "message" : "ok" }')
 );*/
 
 app.get('/api/', (req, res, next) =>
-    res.send('{ "version" : "1.0" }')
+    res.json({
+        "message": "success",
+        "version": "1.0"
+    })
 );
 
 app.get('/*', (req, res) => {

@@ -30,19 +30,19 @@ const imageSchema = {
     },
     FileExtension: {
         type: String,
-        required: 'Location is required'
+        required: 'FileExtension is required'
     },
     CreationDate: {
         type: Date,
-        required: 'ModifiedDate is required'
+        required: 'CreationDate is required'
     },
     Dimensions: {
         type: String,
-        required: 'Location is required'
+        required: 'Dimensions is required'
     },
     Notes: {
         type: String,
-        required: 'Location is required'
+        required: 'Notes is required'
     }
 }
 
@@ -60,7 +60,7 @@ const gallerySchema = {
     },
     CreationDate: {
         type: Date,
-        required: 'ModifiedDate is required'
+        required: 'CreationDate is required'
     },
     ModifiedDate: {
         type: Date,
