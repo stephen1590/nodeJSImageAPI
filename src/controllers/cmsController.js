@@ -30,7 +30,7 @@ const getImage = (img, res) => {
 //Gallery By Name
 //Get Single Gallery
 const getGallery = (gal, res) => {
-    model.getGalleryByName(res, gal)
+    model.getByName(res, "Gallery", gal)
 }
 
 //Get Single Gallery Image List By Name

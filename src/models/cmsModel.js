@@ -36,10 +36,18 @@ const getAll = (res, table, extra) => {
 }
 
 //Get Single Gallery Query
-const getGalleryByName = (res, name) => {
-    let sql = `Select * from [Gallery] where [Name] = ?`
-    dbGet(res, sql, name)
+const getByName = (res, table, name) => {
+    //let sql = `Select * from ${table} where [Name] = ?`
+    //dbGet(res, sql, name)
+    getByColumn(res, table, "[Name]", name)
 }
+
+//Get Single Gallery Query
+const getByColumn = (res, table, column, columnMatch) => {
+    let sql = `Select * from ${table} where  ${column} = ?`
+    dbGet(res, sql, columnMatch)
+}
+
 
 //Get Single Gallery Image List By Name
 const getGalleryImagesByGalleryName = (res, name) => {
@@ -138,7 +146,7 @@ module.exports = {
     galleryImagesSchema,
     getAll,
     getByID,
-    getGalleryByName,
+    getByName,
     getGalleryImagesByGalleryName,
     getGalleryImagesByGalleryID
 
